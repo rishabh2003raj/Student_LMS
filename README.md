@@ -33,32 +33,22 @@ Edit
 ## 🚀 Setup Instructions
 
 ### 📦 Backend Setup
-
-```bash
 cd backend
 npm install
 npx sequelize db:create
 npx sequelize db:migrate
 npm start
+
 Create .env in backend/ with:
 
-ini
-Copy
-Edit
+create .env file
 PORT=5000
 DB_NAME=your_db
 DB_USER=root
 DB_PASS=yourpassword
 DB_HOST=localhost
 JWT_SECRET=your_jwt_secret
-💻 Frontend Setup
-bash
-Copy
-Edit
-cd frontend
-npm install
-npm run dev
-API base URL is already configured as http://localhost:5000/api
+
 
 🔐 User Roles
 Role	Features
