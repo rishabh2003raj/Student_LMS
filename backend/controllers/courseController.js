@@ -7,24 +7,34 @@ exports.getCourses = async (req,res) => {
 
 exports.createCourse = async (req,res) => {
     const {title, description, instructor} = req.body;
-    const course = await Course.create({ title, description, instructor});
+    const image = req.file ? `/uploads/${req.file.filename}` : null;
+    const course = await Course.create({ title, description, instructor,image});
     res.status(201).json(course);
 }
 
-exports.updateCourse = async (req,res) => {
-    const {id} = req.params;
-    const {title,description,instructor} = req.body;
+exports.updateCourse = async (req, res) => {
+  try {
+    const { title, description, instructor } = req.body;
+    const { id } = req.params;
 
     const course = await Course.findByPk(id);
-    if(!course) return res.status(404).json({message: "Course not found"});
+    if (!course) return res.status(404).json({ message: 'Course not found' });
 
     course.title = title;
     course.description = description;
     course.instructor = instructor;
-    await course.save();
 
+    if (req.file) {
+      course.image = `/uploads/${req.file.filename}`;
+    }
+
+    await course.save();
     res.json(course);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating course', error });
+  }
 };
+
 
 exports.deleteCourse = async (req,res) => {
     const {id} = req.params;

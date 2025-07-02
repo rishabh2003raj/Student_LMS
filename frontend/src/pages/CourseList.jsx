@@ -23,6 +23,16 @@ const CourseList = () => {
         {courses.map((course) => (
           <li key={course.id} className="course-item">
             <div>
+              {course.image && (
+                <img
+  src={`http://localhost:5000${course.image}`} // 👈 prepend base URL
+  alt={course.title}
+  width="150"
+  height="100"
+  style={{ objectFit: 'cover' }}
+/>
+)}
+
               <strong>{course.title}</strong> - {course.instructor}
             </div>
             {!enrolled.includes(course.id) && (
